@@ -2,24 +2,19 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "/insights", label: "Insights" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#contact", label: "Contact" },
+  { href: "/writing", label: "Writing" },
+  { href: "/writing?topic=business", label: "Business" },
+  { href: "/writing?topic=trading-cards", label: "Trading Cards" },
+  { href: "/writing?topic=stocks", label: "Stocks" },
+  { href: "/writing?topic=real-estate", label: "Real Estate" },
+  { href: "/about", label: "About" },
+  { href: "/#subscribe", label: "Subscribe" },
 ];
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     if (menuOpen) {
@@ -37,27 +32,16 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[var(--navy)] shadow-sm text-white safari-backdrop-blur"
-          : "bg-transparent text-white"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 bg-[var(--navy)] text-white shadow-sm safari-backdrop-blur"
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <nav className="mx-auto flex h-14 min-h-[44px] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="relative flex h-9 w-[140px] items-center text-inherit sm:h-10 sm:w-[160px]"
+          className="rounded-sm font-serif text-xl font-semibold tracking-tight text-inherit focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-[var(--navy)]"
           onClick={closeMenu}
         >
-          <Image
-            src="/BCRE-White-Trans.png"
-            alt="Brantley Christianson Real Estate"
-            fill
-            className="object-contain object-left"
-            priority
-            sizes="160px"
-          />
+          Nate Brantley
         </Link>
 
         {/* Desktop nav */}
@@ -67,6 +51,7 @@ export default function Header() {
               <Link
                 href={href}
                 className="text-sm font-medium tracking-wide text-inherit transition-colors hover:opacity-80"
+                onClick={closeMenu}
               >
                 {label}
               </Link>
@@ -101,7 +86,10 @@ export default function Header() {
         className={`fixed inset-0 z-40 flex flex-col bg-[var(--navy)] text-white transition-opacity duration-200 lg:hidden ${
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
-        style={{ top: "calc(3.5rem + env(safe-area-inset-top))", paddingBottom: "env(safe-area-inset-bottom)" }}
+        style={{
+          top: "calc(3.5rem + env(safe-area-inset-top))",
+          paddingBottom: "env(safe-area-inset-bottom)",
+        }}
         aria-hidden={!menuOpen}
       >
         <ul className="flex flex-1 flex-col items-center justify-center gap-1 px-4 py-8">

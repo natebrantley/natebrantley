@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
+import SiteFooter from "./components/SiteFooter";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -15,9 +16,42 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Nate Brantley | Modern Real Estate. Timeless Expertise.",
+  metadataBase: new URL("https://natebrantley.com"),
+  title: {
+    default: "Nate Brantley",
+    template: "%s | Nate Brantley",
+  },
   description:
-    "Premium real estate services with Nate Brantley. Listings, valuations, and personalized guidance.",
+    "A cohesive personal stream on business, trading cards, stocks, and real estate.",
+  keywords: [
+    "Nate Brantley",
+    "business",
+    "trading cards",
+    "stocks",
+    "real estate",
+    "Oregon real estate",
+    "Washington real estate",
+  ],
+  alternates: {
+    canonical: "/",
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
+  openGraph: {
+    title: "Nate Brantley",
+    description:
+      "A cohesive personal stream on business, trading cards, stocks, and real estate.",
+    url: "/",
+    siteName: "Nate Brantley",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nate Brantley",
+    description:
+      "A cohesive personal stream on business, trading cards, stocks, and real estate.",
+  },
 };
 
 export const viewport = {
@@ -36,7 +70,8 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" style={{ WebkitTextSizeAdjust: "100%" }}>
       <body className={`${cormorant.variable} ${dmSans.variable} antialiased`}>
         <Header />
-        {children}
+        <main className="min-h-screen pt-14">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );
